@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>MY APP</title>
+  </head>
+
+
+
+  <body>
+    <!--May Node and Express be with you.-->
+
+    <ul class="room">
+      <% for(var i=0; i<room.length; i++) {%>
+         <li class="room">
+           <span><%= room[i].word %></span>
+           <span><%= room[i].hint %></span>
+         </li>
+         <% } %>
+    </ul>
+
+    <form id ="guess" action="/<%= room[0].id %>" method="POST">
+      <input type="hidden" name="id" value="<%= room[0].id %>">
+      <input type="text" placeholder="word" name="word">
+      <input type="text" placeholder="hint" name="hint">
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      var socket = io();
+      $('form').submit(function(){
+      socket.emit('new guess', $('#m').val());
+      $('#m').val('');
+      return false;
+      });
+      socket.on('new guess', function(msg){
+      $('#messages').append($('<li>').text(msg));
+        });
+    </script>
+
+    <!--<ul id="messages"></ul>
+        <form action="">
+          <input id="m" autocomplete="off" /><button>Send</button>
+        </form>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script>
+          var socket = io();
+          $('form').submit(function(){
+          socket.emit('chat message', $('#m').val());
+          $('#m').val('');
+          return false;
+          });
+          socket.on('chat message', function(msg){
+          $('#messages').append($('<li>').text(msg));
+            });
+        </script>-->
+  </body>
+</html>

@@ -1,0 +1,8 @@
+<ul class="guesses">
+  <% for(var i=0; i<guesses.length; i++) {%>
+    <li class="guesses">
+      <span><%= guesses[i].name %></span>
+      <span><%= guesses[i].quote %></span>
+    </li>
+  <% } %>
+</ul>
